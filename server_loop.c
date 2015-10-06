@@ -26,6 +26,7 @@ void process(int sockfd){//get num=xxx- from sockfd and return xxx*3-1
     }
     if(begin==NULL || end==NULL){
         write(sockfd,"Usage: num=xxx-\n",16);
+        return;
     }
     sscanf(begin,"num=%d-",&val);
     sprintf(buffer,"result=%d\n",val*3-1);
@@ -57,7 +58,7 @@ int main(int argc, char *argv[])
     serv_addr.sin_port = htons(portno);
     if (bind(sockfd, (struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0)
         error("ERROR on binding");
-    listen(sockfd,1);
+    listen(sockfd,8);
     clilen = sizeof(cli_addr);
     while(1){
         newsockfd = accept(sockfd,(struct sockaddr *) &cli_addr,&clilen);
