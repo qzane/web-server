@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
             printf("Work%4d done!\n",count);
             exit(0);
         }
+        close(newsockfd);
         ++count;
     }
     close(sockfd);
