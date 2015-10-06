@@ -14,6 +14,25 @@ void error(const char *msg)
     exit(1);
 }
 
+void process(int sockfd){//get num=xxx- from sockfd and return xxx*3-1
+    char buffer[1027];
+    char *begin,*end;
+    int val;
+    bzero(buffer,sizeof(buffer));
+    read(sockfd,buffer,sizeof(buffer)-1);
+    begin = strstr(buffer,"num=");
+    if(begin!=NULL){
+        end = strstr(begin+4,"-");
+    }
+    if(begin==NULL || end==NULL){
+        write(sockfd,"Usage: num=xxx-");
+    }
+    sscanf(begin,"num=%d-",&val);
+    sprintf(buffer,"result:%d\n",val*3-1);
+    usleep(120);
+    write(sockfd,buffer,strlen(buffer));    
+}
+
 int main(int argc, char *argv[])
 {
      int sockfd, newsockfd, portno,iSetOption=1;
@@ -46,12 +65,15 @@ int main(int argc, char *argv[])
                  &clilen);
      if (newsockfd < 0) 
           error("ERROR on accept");
+      process(newsockfd);
+     /*
      bzero(buffer,256);
      n = read(newsockfd,buffer,255);
      if (n < 0) error("ERROR reading from socket");
      printf("Here is the message: %s\n",buffer);
      n = write(newsockfd,"I got your message",18);
-     if (n < 0) error("ERROR writing to socket");
+     if (n < 0) error("ERROR writing to socket");     
+     */
      close(newsockfd);
      close(sockfd);
      return 0; 
