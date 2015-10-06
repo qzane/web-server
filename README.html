@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="generator" content="Madoko, version 0.9.8-beta" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="author" content="qzane" />
+  <title>web-server</title>
+  <style  class="link">
+  /* ---------------------------------------------------
+     Various settings to display madoko elements correctly.
+     For example, lines in tables or a table of contents.
+  
+     All rules use specific madoko classes and never just
+     a generic element. This means one can safely include
+     this CSS into any web page without affecting non-madoko
+     content.
+  ----------------------------------------------------*/
+  
+  /* The table of  contents */
+  .madoko .toc>.tocblock .tocblock .tocblock {
+    margin-left: 2.5em;
+  }
+  
+  .madoko .toc>.tocblock .tocblock {
+    margin-left: 1.7em;
+  }
+  
+  .madoko .toc>.tocblock>.tocitem {
+    font-weight: bold;
+  }
+  
+  .madoko .toc {
+    margin-top: 1em;
+  }
+  
+  /* Paragraphs */
+  .madoko p.para-continue {
+    margin-bottom: 0pt;
+  }
+  
+  .madoko .para-block+p {
+    margin-top: 0pt;
+  }
+  
+  .madoko ul.para-block, .madoko ol.para-block {
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+  }
+  
+  .madoko ul.para-end, .madoko ol.para-end {
+    margin-bottom: 1em;
+  }
+  
+  .madoko dl {
+    margin-left: 0em;
+  }
+  
+  .madoko blockquote {
+    font-style: italic;
+  }
+  
+  /* Local page links do not get an underline unless hovering */
+  .madoko a.localref {
+    text-decoration: none;
+  }
+  .madoko a.localref:hover {
+    text-decoration: underline;
+  }
+  
+  /* Footnotes */
+  .madoko .footnotes {
+    font-size: smaller;
+    margin-top: 2em;
+  }
+  
+  .madoko .footnotes hr {
+    width: 50%;
+    text-align: left;
+  }
+  
+  .madoko .footnote { 
+    margin-left: 1em;
+  }
+  .madoko .footnote-before {
+    margin-left: -1em;
+    width: 1em;
+    display: inline-block;
+  }
+  
+  /* Abstract */
+  .madoko .abstract>p:first-child:before {
+    content: "Abstract. ";
+    font-weight: bold;
+  }
+  
+  .madoko .abstract {
+    margin-left: 2.7em;
+    margin-right: 2.7em;
+    font-size: small;
+  }
+  
+  
+  /* Alignment */
+  .madoko .align-center, .madoko .align-center>p {
+    text-align: center !important;
+  }
+  
+  .madoko .align-center pre {
+    text-align: left;
+  }
+  
+  .madoko .align-center>* {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-left, .madoko .align-left>p {
+    text-align: left !important;
+  }
+  
+  .madoko .align-left>* {
+    margin-left: 0pt !important;
+    margin-right: auto !important;
+  }
+  
+  .madoko .align-right, .madoko .align-right>p {
+    text-align: right !important;
+  }
+  
+  .madoko .align-right>* {
+    margin-left: auto !important;
+    margin-right: 0pt !important;
+  }
+  
+  .madoko .align-center>table,
+  .madoko .align-left>table,
+  .madoko .align-right>table {
+    text-align: left !important;
+  }
+  
+  
+  /* Equations, Figure's etc. */
+  .madoko .equation-before {
+    float: right;
+  }
+  
+  
+  /* Bibliography */
+  .madoko .bibitem {
+    font-size: smaller;
+  }
+  
+  .madoko .bib-numeric .bibitem {
+    margin-left: 3em;
+    text-indent: -3em;
+  }
+  
+  .madoko .bibitem-before {
+    display: none;
+  }
+  
+  .madoko .bib-numeric .bibitem-before {
+    display: inline-block;
+    width: 3em;
+    text-align: right;
+  }
+  
+  .madoko .bibliography {
+  }
+  
+  .madoko .bibsearch {
+    font-size: x-small;
+    text-decoration:none;
+    color: black;
+    font-family: "Segoe UI Symbol", Symbola;
+  }
+  
+  /* General */
+  .madoko .block, .madoko .figure, .madoko .bibitem, .madoko .equation, .madoko div.math {
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .figure {
+    padding: 0.5em;
+    margin-left: 0pt;
+    margin-right: 0pt;
+  }
+  
+  .madoko .hidden {
+    display: none;
+  }
+  
+  .madoko .invisible {
+    visibility: hidden;
+  }
+  
+  .madoko.preview .invisible {
+    visibility: visible;
+    opacity: 0.5;
+  }
+  
+  .madoko code.code, .madoko span.code {
+    white-space: pre-wrap;
+  }
+  
+  .madoko hr, hr.madoko {
+    border: none;
+    border-bottom: black solid 1px;
+    margin-bottom: 0.5ex;
+  }
+  
+  .madoko .framed>*:first-child {
+    margin-top: 0pt;
+  }
+  .madoko .framed>*:last-child {
+    margin-bottom: 0pt;
+  }
+  
+  
+  /* Title, authors */
+  /*
+  .madoko .title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .subtitle {
+    font-size: x-large;
+    margin-bottom: 1ex;
+    margin-top: -1ex;
+  }
+  
+  .madoko .titleblock>* {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .madoko .titleblock table {
+    width: 80%;
+  }
+  
+  .madoko .authorblock .author {
+    font-size: large;
+  }
+  
+  .madoko .titlenote {
+    margin-top: -0.5ex;
+    margin-bottom: 1.5ex;
+  }
+  */
+  
+  /* Lists */
+  
+  .madoko ul.list-star {
+    list-style-type: disc;
+  }
+  
+  .madoko ul.list-dash {
+      list-style-type: none !important;
+  }
+  
+  .madoko ul.list-dash > li:before {
+      content: "\2013"; 
+      position: absolute;
+      margin-left: -1em; 
+  }
+  
+  .madoko ul.list-plus {
+    list-style-type: square;
+  }
+  
+  /* Tables */
+  .madoko table.madoko {
+    border-collapse: collapse;
+  }
+  .madoko td, .madoko th {
+    padding: 0ex 0.5ex;
+    margin: 0pt;
+    vertical-align: top;
+  }
+  
+  .madoko .cell-border-left {
+    border-left: 1px solid black;
+  }
+  .madoko .cell-border-right {
+    border-right: 1px solid black;
+  }
+  
+  
+  .madoko thead>tr:first-child>.cell-line,
+  .madoko tbody:first-child>tr:first-child>.cell-line {
+    border-top: 1px solid black;
+    border-bottom: none;
+  }
+  
+  .madoko .cell-line, .madoko .cell-double-line {
+    border-bottom: 1px solid black;
+    border-top: none;
+  }
+  
+  .madoko .cell-double-line {
+    border-top: 1px solid black;
+    padding-top: 1.5px !important;
+  }
+  
+  
+  /* Math Pre */
+  .madoko .input-mathpre .MathJax_Display {
+    text-align: left !important;
+  }
+  
+  .madoko div.input-mathpre {
+    text-align: left;
+    margin-top: 1.5ex;
+    margin-bottom: 1ex;
+  }
+  
+  .madoko .math-rendering {
+    color: gray;
+  }
+  
+  /* Math */
+  .madoko .mathdisplay {
+    text-align: center;
+  }
+  
+  
+  /*---------------------------------------------------------------------------
+    Default style for syntax highlighting
+  ---------------------------------------------------------------------------*/
+  
+  .highlighted                        { color: black; }
+  .highlighted .token.identifier      { }
+  .highlighted .token.operators       { }
+  .highlighted .token.keyword         { color: blue }
+  .highlighted .token.string          { color: maroon } 
+  .highlighted .token.string.escape   { color: gray }
+  .highlighted .token.comment         { color: darkgreen }
+  .highlighted .token.comment.doc     { font-style: normal }
+  .highlighted .token.constant        { color: purple; }
+  .highlighted .token.entity          {  }
+  .highlighted .token.tag             { color: blue }
+  .highlighted .token.info-token      { color: black }
+  .highlighted .token.warn-token      { color: black }
+  .highlighted .token.error-token     { color: darkred }
+  .highlighted .token.debug-token     { color: gray }
+  .highlighted .token.regexp          { color: maroon }
+  .highlighted .token.attribute.name  { color: navy }
+  .highlighted .token.attribute.value { color: maroon }
+  .highlighted .token.constructor     { color: purple }
+  .highlighted .token.namespace       { color: navy }
+  .highlighted .token.header          { color: navy }
+  .highlighted .token.type            { color: teal } 
+  .highlighted .token.type.delimiter  { color: teal; } 
+  .highlighted .token.predefined      { color: navy }
+  .highlighted .token.invalid         { border-bottom: red dotted 1px }
+  .highlighted .token.code            { color: maroon }
+  .highlighted .token.code.keyword    { color: navy }
+  .highlighted .token.typevar         { font-style: italic; }
+  
+  .highlighted .token.delimiter   {  } /* .[curly,square,parenthesis,angle,array,bracket] */
+  .highlighted .token.number      {  }    /* .[hex,octal,binary,float] */
+  .highlighted .token.variable    {  }  /* .[name,value]  */
+  .highlighted .token.meta        { color: navy }      /* .[content] */
+  
+  .highlighted .token.bold            { font-weight: bold; }
+  .highlighted .token.italic          { font-style: italic; }
+  
+  
+  /* Pretty formatting of code */
+  .madoko pre.pretty, .madoko code.pretty { 
+    font-family: Cambria,Times,Georgia,serif;
+    font-size: 100%;
+  }
+  
+  .madoko .pretty table {
+    border-collapse: collapse;
+  }
+  .madoko .pretty td {
+    padding: 0em;
+  }
+  .madoko .pretty td.empty {
+    min-width: 1.5ex;
+  }
+  .madoko .pretty td.expander {
+    width: 100em;
+  }
+  .madoko .pretty .token.identifier         { font-style: italic }
+  .madoko .pretty .token.constructor        { font-style: italic }
+  
+  
+  /* ---------------------------------------------------
+     Styling for full documents
+  ----------------------------------------------------*/
+  body.madoko {
+    font-family: Cambria,"Times New Roman","Liberation Serif","Times",serif;
+    -webkit-text-size-adjust: 100%;       /* so math displays well on mobile devices */
+    text-rendering: optimizeLegibility;
+  }
+  
+  body.madoko {
+    max-width: 88ex; /* about 88 characters */
+    margin: 1em auto;
+    padding: 0em 2em;  
+  }
+  
+  body.preview.madoko {
+    padding: 0em 1em;
+  }
+  
+  .madoko p,
+  .madoko li {
+    text-align: justify;
+  }
+  
+  /* style headings nicer, especially h5 and h6 */
+  .madoko h1, .madoko h2, .madoko h3, .madoko h4 { 
+    margin-top: 1.22em; 
+    margin-bottom: 1ex;
+  }
+  .madoko h1+p, .madoko h2+p, .madoko h3+p, .madoko h4+p, .madoko h5+p  { 
+    margin-top: 1ex;    
+  }
+  .madoko h5, .madoko h6 { 
+    margin-top: 1ex;
+    font-size: 1em;
+  }
+  .madoko h5 { 
+    margin-bottom: 0.5ex;
+  }
+  .madoko h5 + p {
+    margin-top: 0.5ex;
+  }
+  .madoko h6 { 
+    margin-bottom: 0pt;
+  }
+  .madoko h6 + p {
+    margin-top: 0pt;
+  }
+  
+  
+  /* Fix monospace display (see http://code.stephenmorley.org/html-and-css/fixing-browsers-broken-monospace-font-handling/) */
+  .madoko pre, .madoko code, .madoko kbd, .madoko samp, .madoko tt, .madoko .monospace, .madoko .token.indent, .madoko .reveal pre, .madoko .reveal code, .madoko .email {
+    font-family: Consolas,"Andale Mono WT","Andale Mono",Lucida Console,Monaco,monospace,monospace;
+    font-size: 0.85em;
+  }
+  .madoko pre code, .madoko .token.indent {
+    font-size: 0.95em;
+  }
+  
+  .madoko pre code {
+    font-family: inherit !important;
+  }
+  
+  /* Code prettify */
+  .madoko ol.linenums li {
+    background-color: white;
+    list-style-type: decimal;
+  }
+  
+  /* Merging */
+  .madoko .remote {
+    background-color: #F0FFF0;
+  }
+  .madoko .remote + * {
+    margin-top: 0pt;
+  }
+  
+  /* ---------------------------------------------------
+     Print settings
+  ----------------------------------------------------*/
+  
+  @media print {
+    body.madoko {
+      font-size: 10pt;
+    }
+    @page {
+      margin: 1in 1.5in;
+    }
+  }
+  
+  /* ---------------------------------------------------
+     Mobile device settings
+  ----------------------------------------------------*/
+  
+  @media only screen and (max-device-width:1024px) {
+    body.madoko {
+      padding: 0em 1em;
+    }
+  }
+  
+    </style>
+  
+  </head>
+<body class="madoko">
+
+<div class="body madoko" style="line-adjust:0">
+
+<div class="titleblock align-center para-block" style="text-align:center;line-adjust:0">
+<div class="titleheader align-center" style="text-align:center;line-adjust:0">
+<div class="title para-block" style="font-size:xx-large;font-weight:bold;margin-bottom:0.5ex;line-adjust:0">web-server</div>
+<div class="subtitle para-block" style="font-size:x-large;margin-bottom:0.5ex;line-adjust:0">an event-driven web server and client</div></div>
+<div class="authors align-center" style="text-align:center;width:80%;line-adjust:0"><table class="authorrow columns block"  style="margin-top:2ex;width:100%;line-adjust:0">
+<tbody><tr><td class="author column"  style="text-align:center;line-adjust:0">
+<div class="authorname" style="font-size:large;line-adjust:0">qzane</div>
+<div class="authoremail email" style="line-adjust:0">qzane@live.com</div></td></tr></tbody></table></div></div><h2 id="sec-content"    style="display:block;bookmark:1.&#8194;Content;level:1"><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Content</h2><span data-line=""></span>
+<nav class="toc" >
+<div class="tocblock" >
+<div class="tocitem"   ><a href="#sec-content" class="localref"><span class="heading-before"><span class="heading-label">1</span>.&#8194;</span>Content</a></div>
+<div class="tocitem"   ><a href="#sec-what-is-this" class="localref"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>What is this</a></div>
+<div class="tocblock" >
+<div class="tocitem"   ><a href="#sec-install" class="localref"><span class="heading-before"><span class="heading-label">2.1</span>.&#8194;</span>Install</a></div>
+<div class="tocitem"   ><a href="#sec-server-client" class="localref"><span class="heading-before"><span class="heading-label">2.2</span>.&#8194;</span>server &amp; client</a></div>
+<div class="tocitem"   ><a href="#sec-server_loop" class="localref"><span class="heading-before"><span class="heading-label">2.3</span>.&#8194;</span>server_loop</a></div>
+<div class="tocitem"   ><a href="#sec-client_multi_process" class="localref"><span class="heading-before"><span class="heading-label">2.4</span>.&#8194;</span>client_multi_process</a></div>
+<div class="tocitem"   ><a href="#sec-server_multi_process" class="localref"><span class="heading-before"><span class="heading-label">2.5</span>.&#8194;</span>server_multi_process</a></div></div>
+<div class="tocitem"   ><a href="#sec-result" class="localref"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>Result</a></div>
+<div class="tocblock" >
+<div class="tocitem"   ><a href="#sec-test" class="localref"><span class="heading-before"><span class="heading-label">3.1</span>.&#8194;</span>test</a></div>
+<div class="tocitem"   ><a href="#sec-result" class="localref"><span class="heading-before"><span class="heading-label">3.2</span>.&#8194;</span>result</a></div></div>
+<div class="tocitem"   ><a href="#sec-design" class="localref"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>design</a></div>
+<div class="tocblock" >
+<div class="tocitem"   ><a href="#sec-server-client-server_loop" class="localref"><span class="heading-before"><span class="heading-label">4.1</span>.&#8194;</span>server &amp; client &amp; server_loop</a></div>
+<div class="tocitem"   ><a href="#sec-client_multi_process" class="localref"><span class="heading-before"><span class="heading-label">4.2</span>.&#8194;</span>client_multi_process</a></div>
+<div class="tocitem"   ><a href="#sec-server_multi_process" class="localref"><span class="heading-before"><span class="heading-label">4.3</span>.&#8194;</span>server_multi_process</a></div></div></div></nav><h2 id="sec-what-is-this"    style="display:block;bookmark:2.&#8194;What is this;level:1"><span class="heading-before"><span class="heading-label">2</span>.&#8194;</span>What is this</h2>
+<p class="noindent"><a href="http://github.com/qzane/web-server" data-linkid="this web-server project">This web-server project</a> contains the following files:
+</p>
+<ul class="ul list-star compact" >
+<li class="li ul-li list-star-li compact-li" >server.c
+</li>
+<li class="li ul-li list-star-li compact-li" >server_loop.c
+</li>
+<li class="li ul-li list-star-li compact-li" >server_multi_process.c
+</li>
+<li class="li ul-li list-star-li compact-li" >client.c
+</li>
+<li class="li ul-li list-star-li compact-li" >client_multi_process.c
+</li></ul>
+<h3 id="sec-install"    style="display:block;bookmark:2.1.&#8194;Install;level:2"><span class="heading-before"><span class="heading-label">2.1</span>.&#8194;</span>Install</h3>
+<pre class="para-block pre-fenced pre-fenced3" ><code>   gcc -o client client.c
+   gcc -o client_multi_process client_multi_process.c
+   gcc -o server server.c
+   gcc -o server_loop server_loop.c
+   gcc -o server_multi_process server_multi_process.c</code></pre><h3 id="sec-server-client"    style="display:block;bookmark:2.2.&#8194;server &amp; client;level:2"><span class="heading-before"><span class="heading-label">2.2</span>.&#8194;</span>server &amp; client</h3>
+<p class="noindent">on server machine
+</p>
+<pre class="para-block pre-fenced pre-fenced3" ><code>  &gt;&gt;&gt;./server &lt;port&gt;</code></pre>
+<p class="noindent para-continued">on client machine
+</p>
+<pre class="para-block pre-fenced pre-fenced3" ><code>  &gt;&gt;&gt;./client &lt;server&#39;s ip&gt; &lt;port&gt;
+  Please enter the message: num=10-
+  result=29</code></pre>
+<p class="noindent para-continued"><strong class="strong16" >explain:<br></strong>
+The server listen to the specified prot.<br>
+Once it receive a message like &#8220;num=x-&#8221;,<br>
+it will reply  &#8220;result=y&#8221;,<br>
+and the value of y equals  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJgAAAAeCAYAAADQK9fkAAAEW0lEQVR42u1c63GbQBD+NuMCiFNBcAeohOAO5HRg1IE0qcAjd4BSgYM6IB3EuAOUDgIdbH5oT16feRkJ/OB25mYM7AFaffft62RiZjh5FCLyAPwAEALw5fQ9gB2AhJl/Oyt1l0/OBE/AtQbwF4AH4AbADMA3ACmA7wBSIsqIKHTWOthsTkSFLMzn1x2DHQyVCUtdM3NZcd0HkKtTV8y8dUyPpZyaMfODY7B65vIA3FSBCwCYeQdgpU4lArrJAIqIfGGsBEChwOVcZItEEm9lRBQ36Nnx12IqblAAlQNIxFYLAGXr3Km7SKH6wmIr6qj7wMyzidjIB1AKk5vzhTB/rYs8mzp1MXNJRH11/03FRgAeXBbZXwzdlwCuGlayHXM9ONM1y5kzAcDMGwCbDqo2wP44630QBqurs4wsV1b8tXUQ+gAAkzJC8QYKnJH6+9rBpyfAiCgkolQqtIVUryM7HiGihIjyOp0TSlDjosYEeaIOL6syJicdACZ1oDWANTN/ZubPAO4AxMbIRBQAyADEzHwhOveisxzgPXevlbWZhQRgLkH9zPUjXxbgHgaAGECqz6lrOQAWN1EACKx5LCOrmt9lAPBqzq/l3kHXOccM+XxsjWSIZ73nYdkpqNL5pN0igJCZL1tYJAbwy3IR3yv0XswUEmdVxVqmB1hac5YyJzvxuvsK4ELGDPsWUSjPit9IwvG+GEzQGDagNVdo9a1rS5mf9l3l2FeE9YpYq2vz/as+0U01u4ywWvX7NdrKMZjSUV9g3nIzc6N84JeO1ItnEtiHBmCGSdT1cESDzi23GTiANdviTLm1pgp2oA5/D8yoGwAbyUhXwpy3AEpJQCIJtldjB9vMvCWiEo/9t0Tc6LH1vfOBXvlf3e6QVwnyG5C6VEidj7xK5hZjBa+8amOLxaIj7rWsSCZOPZK3wGBtcjkWg9n1OOw3tXmqHrYgorXu6o8suXW86NhmqhLTCfgy4Pum74HBRom/LNbK5JmpirsClWwkdrLR81mhPCvvwkYVcVjhYrCWIL/DF2BuEo8ArNx2PzrIl+NE6aR9gSbMaLsU3wFsgDpYR/eYtlS8gyPcYYDH3ZI7ABcS8BsgHBrezHylkhLDQH3Eb2hL1cl5TX3QSc9md9gx/kqO6RVK4XYL4FbaT7sKIJzrjE4yuC32vwDqI1UZVluMae9gvXMwahZPwFHo4qZQoN8l/pJVXwxIxaZVFA5w71w+e9wlQ7VceDHl9lFXF7mWuMLD81+JLFpWu5GfGHb7iq9d5YllJffN2nZISFarWXr16nWmd+Ai/Yq02fQGIwUyv8boCYDdwJvvvJr45yTFUwFZLPvOmnqliQWuzcTx4zXEpgeJ7AxR4q7cuCRVXFxXpPdj9AHDoXczqIKucZdzcf2hctGT7UOKLcyYW5k8mzKP2MvoeXbdqVBNa7+mNqV1wg9oSGM8O9ZKxu5ivCGbeD27CJH71wFOXtIz1aFF2abHzOV/jWuCri8kguoAAAAASUVORK5CYII=" alt="$x*3-1$" data-path="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJgAAAAeCAYAAADQK9fkAAAEW0lEQVR42u1c63GbQBD+NuMCiFNBcAeohOAO5HRg1IE0qcAjd4BSgYM6IB3EuAOUDgIdbH5oT16feRkJ/OB25mYM7AFaffft62RiZjh5FCLyAPwAEALw5fQ9gB2AhJl/Oyt1l0/OBE/AtQbwF4AH4AbADMA3ACmA7wBSIsqIKHTWOthsTkSFLMzn1x2DHQyVCUtdM3NZcd0HkKtTV8y8dUyPpZyaMfODY7B65vIA3FSBCwCYeQdgpU4lArrJAIqIfGGsBEChwOVcZItEEm9lRBQ36Nnx12IqblAAlQNIxFYLAGXr3Km7SKH6wmIr6qj7wMyzidjIB1AKk5vzhTB/rYs8mzp1MXNJRH11/03FRgAeXBbZXwzdlwCuGlayHXM9ONM1y5kzAcDMGwCbDqo2wP44630QBqurs4wsV1b8tXUQ+gAAkzJC8QYKnJH6+9rBpyfAiCgkolQqtIVUryM7HiGihIjyOp0TSlDjosYEeaIOL6syJicdACZ1oDWANTN/ZubPAO4AxMbIRBQAyADEzHwhOveisxzgPXevlbWZhQRgLkH9zPUjXxbgHgaAGECqz6lrOQAWN1EACKx5LCOrmt9lAPBqzq/l3kHXOccM+XxsjWSIZ73nYdkpqNL5pN0igJCZL1tYJAbwy3IR3yv0XswUEmdVxVqmB1hac5YyJzvxuvsK4ELGDPsWUSjPit9IwvG+GEzQGDagNVdo9a1rS5mf9l3l2FeE9YpYq2vz/as+0U01u4ywWvX7NdrKMZjSUV9g3nIzc6N84JeO1ItnEtiHBmCGSdT1cESDzi23GTiANdviTLm1pgp2oA5/D8yoGwAbyUhXwpy3AEpJQCIJtldjB9vMvCWiEo/9t0Tc6LH1vfOBXvlf3e6QVwnyG5C6VEidj7xK5hZjBa+8amOLxaIj7rWsSCZOPZK3wGBtcjkWg9n1OOw3tXmqHrYgorXu6o8suXW86NhmqhLTCfgy4Pum74HBRom/LNbK5JmpirsClWwkdrLR81mhPCvvwkYVcVjhYrCWIL/DF2BuEo8ArNx2PzrIl+NE6aR9gSbMaLsU3wFsgDpYR/eYtlS8gyPcYYDH3ZI7ABcS8BsgHBrezHylkhLDQH3Eb2hL1cl5TX3QSc9md9gx/kqO6RVK4XYL4FbaT7sKIJzrjE4yuC32vwDqI1UZVluMae9gvXMwahZPwFHo4qZQoN8l/pJVXwxIxaZVFA5w71w+e9wlQ7VceDHl9lFXF7mWuMLD81+JLFpWu5GfGHb7iq9d5YllJffN2nZISFarWXr16nWmd+Ai/Yq02fQGIwUyv8boCYDdwJvvvJr45yTFUwFZLPvOmnqliQWuzcTx4zXEpgeJ7AxR4q7cuCRVXFxXpPdj9AHDoXczqIKucZdzcf2hctGT7UOKLcyYW5k8mzKP2MvoeXbdqVBNa7+mNqV1wg9oSGM8O9ZKxu5ivCGbeD27CJH71wFOXtIz1aFF2abHzOV/jWuCri8kguoAAAAASUVORK5CYII=" class="math-inline math" style="vertical-align:-0.089em;height:0.781em">.<br>
+Also, it will wait for about 0.32s for each request simulating the IO delay.
+<br><br>
+The client connect to the server with its ip address and port.<br>
+Once the connection is set, the client&#39;ll ask you to input a message.<br>
+Then, the client will sent the message to the server and display its reply.
+</p><h3 id="sec-server_loop"    style="display:block;bookmark:2.3.&#8194;server_loop;level:2"><span class="heading-before"><span class="heading-label">2.3</span>.&#8194;</span>server_loop</h3>
+<pre class="para-block pre-fenced pre-fenced3" ><code>  &gt;&gt;&gt;./server_loop &lt;port&gt;</code></pre>
+<p class="noindent para-continued">Very similar to <strong class="strong10" >server</strong> except that it will wait for another connection after each work.
+</p><h3 id="sec-client_multi_process"    style="display:block;bookmark:2.4.&#8194;client_multi_process;level:2"><span class="heading-before"><span class="heading-label">2.4</span>.&#8194;</span>client_multi_process</h3>
+<pre class="para-block pre-fenced pre-fenced3" ><code>  &gt;&gt;&gt;./client_multi_process &lt;server&#39;s ip&gt; &lt;port&gt;</code></pre>
+<p class="noindent para-continued">The main process of this program generate 20 sub-process,<br>
+each of which will send a message like &#8220;num=count-&#8221; to the server.<br>
+the values of count are 0,1,2&#8230;19.
+ 
+</p><h3 id="sec-server_multi_process"    style="display:block;bookmark:2.5.&#8194;server_multi_process;level:2"><span class="heading-before"><span class="heading-label">2.5</span>.&#8194;</span>server_multi_process</h3>
+<pre class="para-block pre-fenced pre-fenced3" ><code>  &gt;&gt;&gt;./server_multi_process &lt;port&gt;</code></pre>
+<p class="noindent para-continued">The real event-driven web server.<br>
+The  behavior is similar to <strong class="strong15" >server_loop</strong>,<br>
+but once this program get a new request,<br>
+it will generate a new process to deal with that request,<br>
+so that the main process can keep on listening.
+</p><h2 id="sec-result"    style="display:block;bookmark:3.&#8194;Result;level:1"><span class="heading-before"><span class="heading-label">3</span>.&#8194;</span>Result</h2><h3 id="sec-test"    style="display:block;bookmark:3.1.&#8194;test;level:2"><span class="heading-before"><span class="heading-label">3.1</span>.&#8194;</span>test</h3>
+<p class="noindent">run the following commands on server machine:
+</p>
+<pre class="para-block pre-fenced pre-fenced3 language-python lang-python python highlighted"  ><code><span class='token white python'>  </span>&gt;&gt;&gt;<span class='token delimiter python'>.</span><span class='token operator python'>/</span><span class='token identifier python'>server_loop</span><span class='token white python'> </span><span class='token operator python'>&lt;</span><span class='token identifier python'>port</span><span class='token operator python'>&gt;</span><span class='token white python'>          </span><span class='token comment python'># test 1</span><br><span class='token white python'>  </span>&gt;&gt;&gt;<span class='token delimiter python'>.</span><span class='token operator python'>/</span><span class='token identifier python'>server_multi_process</span><span class='token white python'> </span><span class='token operator python'>&lt;</span><span class='token identifier python'>port</span><span class='token operator python'>&gt;</span><span class='token white python'> </span><span class='token comment python'># test 2</span></code></pre>
+<p class="noindent para-continued">for each test, run this commands on client machine:
+</p>
+<pre class="para-block pre-fenced pre-fenced3" ><code>  &gt;&gt;&gt;time ./client_multi_process &lt;server&#39;s ip&gt; &lt;port&gt;</code></pre><h3 id="sec-result"    style="display:block;bookmark:3.2.&#8194;result;level:2"><span class="heading-before"><span class="heading-label">3.2</span>.&#8194;</span>result</h3>
+<p class="noindent"><strong class="strong11" >test 1:</strong>
+</p>
+<pre class="para-block pre-fenced pre-fenced3" ><code>real    0m5.151s
+user    0m0.001s
+sys     0m0.002s</code></pre>
+<p class="noindent para-continued"><strong class="strong11" >test 2:</strong>
+</p>
+<pre class="para-block pre-fenced pre-fenced3" ><code>real    0m0.363s
+user    0m0.000s
+sys     0m0.002s</code></pre>
+<p class="noindent para-continued"><strong class="strong7" >PS:</strong> the client detects some errors when using server_loop <br>
+but this thing didn&#39;t happened when using server_multi_process.<br>
+So, I guess that the <img src="data:image/png;base64,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" alt="$backlog$" data-path="data:image/png;base64,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" class="math-inline math" style="vertical-align:-0.205em;height:0.937em"> argument of <img src="data:image/png;base64,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" alt="$listen(2)$" data-path="data:image/png;base64,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" class="math-inline math" style="vertical-align:-0.280em;height:1.119em"> only limit
+programs with single thread.
+</p><h2 id="sec-design"    style="display:block;bookmark:4.&#8194;design;level:1"><span class="heading-before"><span class="heading-label">4</span>.&#8194;</span>design</h2><h3 id="sec-server-client-server_loop"    style="display:block;bookmark:4.1.&#8194;server &amp; client &amp; server_loop;level:2"><span class="heading-before"><span class="heading-label">4.1</span>.&#8194;</span>server &amp; client &amp; server_loop</h3>
+<p class="noindent">I learnt sockets programming from the web-site:
+</p>
+<blockquote >
+
+<p class="noindent">http://www.linuxhowtos.org/C_C++/socket.htm
+</p></blockquote><h3 id="sec-client_multi_process"    style="display:block;bookmark:4.2.&#8194;client_multi_process;level:2"><span class="heading-before"><span class="heading-label">4.2</span>.&#8194;</span>client_multi_process</h3>
+<pre class="para-block pre-fenced pre-fenced3 language-cpp lang-cpp cpp highlighted"  ><code><span class='token white cpp'>    </span><span class='token keyword cpp'>for</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>count</span><span class='token operator cpp'>=</span><span class='token number cpp'>0</span><span class='token delimiter cpp'>;</span><span class='token identifier cpp'>count</span><span class='token delimiter angle cpp bracket-open'>&lt;</span><span class='token type identifier cpp'>PROCESS_NUM</span><span class='token white cpp'> </span><span class='token operator cpp'>&amp;&amp;</span><span class='token white cpp'> </span><span class='token identifier cpp'>fork</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token operator cpp'>!=</span><span class='token number cpp'>0</span><span class='token delimiter cpp'>;</span><span class='token operator cpp'>++</span><span class='token identifier cpp'>count</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><br><span class='token white cpp'>        </span><span class='token delimiter cpp'>;</span><span class='token comment cpp'>//make PROCESS_NUM copies</span><br><br><span class='token white cpp'>    </span><span class='token keyword cpp'>if</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>count</span><span class='token operator cpp'>==</span><span class='token type identifier cpp'>PROCESS_NUM</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter curly cpp bracket-open'>{</span><span class='token comment cpp'>//root process</span><br><span class='token white cpp'>        </span><span class='token keyword cpp'>while</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>wait</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token type identifier cpp'>NULL</span><span class='token delimiter parenthesis cpp bracket-close'>)</span>!=-<span class='token number cpp'>1</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><br><span class='token white cpp'>            </span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>        </span><span class='token identifier cpp'>printf</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token string cpp'>&quot;</span><span class='token string escape cpp'>\n</span><span class='token string cpp'>All finished!</span><span class='token string escape cpp'>\n</span><span class='token string cpp'>&quot;</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>        </span><span class='token identifier cpp'>exit</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token number cpp'>0</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>    </span><span class='token delimiter curly cpp bracket-close'>}</span></code></pre><h3 id="sec-server_multi_process"    style="display:block;bookmark:4.3.&#8194;server_multi_process;level:2"><span class="heading-before"><span class="heading-label">4.3</span>.&#8194;</span>server_multi_process</h3>
+<pre class="para-block pre-fenced pre-fenced3 language-cpp lang-cpp cpp highlighted"  ><code><span class='token white cpp'>    </span><span class='token identifier cpp'>newsockfd</span><span class='token white cpp'> </span><span class='token operator cpp'>=</span><span class='token white cpp'> </span><span class='token identifier cpp'>accept</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>sockfd</span><span class='token delimiter cpp'>,</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token keyword cpp'>struct</span><span class='token white cpp'> </span><span class='token identifier cpp'>sockaddr</span><span class='token white cpp'> </span><span class='token operator cpp'>*</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token white cpp'> </span><br><span class='token white cpp'>                       </span><span class='token operator cpp'>&amp;</span><span class='token identifier cpp'>cli_addr</span><span class='token delimiter cpp'>,</span><span class='token operator cpp'>&amp;</span><span class='token identifier cpp'>clilen</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>    </span><span class='token keyword cpp'>if</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>fork</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token operator cpp'>==</span><span class='token number cpp'>0</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter curly cpp bracket-open'>{</span><br><span class='token white cpp'>        </span><span class='token identifier cpp'>process</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>newsockfd</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><span class='token white cpp'>       </span><br><span class='token white cpp'>        </span><span class='token identifier cpp'>close</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>newsockfd</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>        </span><span class='token identifier cpp'>printf</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token string cpp'>&quot;</span><span class='token string cpp'>Work%4d done!</span><span class='token string escape cpp'>\n</span><span class='token string cpp'>&quot;</span><span class='token delimiter cpp'>,</span><span class='token identifier cpp'>count</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>        </span><span class='token identifier cpp'>exit</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token number cpp'>0</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>    </span><span class='token delimiter curly cpp bracket-close'>}</span><br><span class='token white cpp'>    </span><span class='token identifier cpp'>close</span><span class='token delimiter parenthesis cpp bracket-open'>(</span><span class='token identifier cpp'>newsockfd</span><span class='token delimiter parenthesis cpp bracket-close'>)</span><span class='token delimiter cpp'>;</span><br><span class='token white cpp'>    </span><span class='token operator cpp'>++</span><span class='token identifier cpp'>count</span><span class='token delimiter cpp'>;</span></code></pre></div><span data-line=""></span>
+</body>
+
+</html>
