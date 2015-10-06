@@ -25,7 +25,7 @@ void process(int sockfd){//get num=xxx- from sockfd and return xxx*3-1
         end = strstr(begin+4,"-");
     }
     if(begin==NULL || end==NULL){
-        write(sockfd,"Usage: num=xxx-");
+        write(sockfd,"Usage: num=xxx-\n",16);
     }
     sscanf(begin,"num=%d-",&val);
     sprintf(buffer,"result:%d\n",val*3-1);
