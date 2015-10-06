@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     char buffer[256];
-    int count;    
+    int val,count;    
     
     if (argc < 3) {
        fprintf(stderr,"usage %s hostname port\n", argv[0]);
@@ -37,6 +37,12 @@ int main(int argc, char *argv[])
     for(count=0;count<PROCESS_NUM && fork()!=0;++count)
         ;//make PROCESS_NUM copies
     
+    if(count==PROCESS_NUM){//root process
+        while(wait(NULL)!=-1)
+            ;
+        printf("\nAll finished!\n");
+        exit(0);
+    }
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) 
         error("ERROR opening socket");
@@ -55,16 +61,12 @@ int main(int argc, char *argv[])
     if (n < 0) 
          error("ERROR reading from socket");
     //printf("%s\n",buffer);
+    sscanf(buffer,"result=%d",&val);
     close(sockfd);
-    
-    if(count==PROCESS_NUM){//root process
-        while(wait(NULL)!=-1)
-            ;
-        printf("\nAll finished!\n");
-    }else{
+    if(val==count*3-1)
         printf("Process%3d finished!",count);
-        fflush(stdout);
-    }
-    
+    else
+        printf("\nERROR%3d !!!\n",count);
+    fflush(stdout);
     return 0;
 }
