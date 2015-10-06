@@ -26,10 +26,13 @@ int main(int argc, char *argv[])
          exit(1);
      }
      sockfd = socket(AF_INET, SOCK_STREAM, 0);
+     
+     setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*)&iSetOption,sizeof(iSetOption));//stop waiting after close(sockfd);
+     
      if (sockfd < 0) 
         error("ERROR opening socket");
-     bzero((char *) &serv_addr, sizeof(serv_addr));
-     portno = atoi(argv[1]);
+     bzero((char *) &serv_addr, sizeof(serv_addr)); //string.h
+     portno = atoi(argv[1]);// stdlib.h  string to integer
      serv_addr.sin_family = AF_INET;
      serv_addr.sin_addr.s_addr = INADDR_ANY;
      serv_addr.sin_port = htons(portno);
