@@ -29,7 +29,7 @@ void process(int sockfd){//get num=xxx- from sockfd and return xxx*3-1
     }
     sscanf(begin,"num=%d-",&val);
     sprintf(buffer,"result:%d\n",val*3-1);
-    usleep(120);
+    usleep(320000);// simulate IO delay
     write(sockfd,buffer,strlen(buffer));    
 }
 
