@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
         if (n < 0) error("ERROR writing to socket");     
         */
         close(newsockfd);
-        printf("Work%4d done!",count++);
+        printf("Work%4d done!\n",count++);
     }
     close(sockfd);
     return 0; 
