@@ -37,10 +37,12 @@ void process(int sockfd){//get num=xxx- from sockfd and return xxx*3-1
 int main(int argc, char *argv[])
 {
     int sockfd, newsockfd, portno,iSetOption=1;
+    int count;
     socklen_t clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
+    count = 0;
     if (argc < 2) {
         fprintf(stderr,"ERROR, no port provided\n");
         exit(1);
@@ -75,6 +77,7 @@ int main(int argc, char *argv[])
         if (n < 0) error("ERROR writing to socket");     
         */
         close(newsockfd);
+        printf("Work%4d done!",count++);
     }
     close(sockfd);
     return 0; 
